@@ -85,6 +85,15 @@ class NotImplemented extends AppError {
 
 }
 
+/* Hash Error */
+class HashingError extends AppError {
+
+    constructor(message: string = 'Password hashing failed') {
+        super(message, 500);
+    }
+
+};
+
 export { 
     AppError,
     BadRequestError,
@@ -94,5 +103,6 @@ export {
     ConflictError,
     TooManyRequestsError,
     InternalServerError,
-    NotImplemented
+    NotImplemented,
+    HashingError
 };

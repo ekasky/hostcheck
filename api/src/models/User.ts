@@ -1,4 +1,5 @@
 import { DataTypes, Model, Optional } from 'sequelize';
+import { v4 as uuid } from 'uuid';
 
 import sequelize from '../config/db';
 
@@ -51,7 +52,8 @@ User.init(
         id: {
             type: DataTypes.UUID,
             autoIncrement: true,
-            primaryKey: true
+            primaryKey: true,
+            defaultValue: () => uuid()
         },
         
         firstName: {
@@ -133,7 +135,8 @@ User.init(
     },
     {
         sequelize,
-        modelName: 'User'
+        modelName: 'User',
+        tableName: 'User'
     }
 );
 
