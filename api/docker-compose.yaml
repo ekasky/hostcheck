@@ -1,0 +1,22 @@
+services:
+  mysql:
+    image: mysql:latest                           # Uses the latest official MySQL image from Docker Hub
+    container_name: mysql_db                      # Names the container "mysql_db"
+    restart: always                               # Container restarts unless explicitly stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}  # Root password from env variable
+      MYSQL_DATABASE: ${MYSQL_DATABASE}            # Database name from env variable
+      MYSQL_USER: ${MYSQL_USER}                    # Custom user from env variable
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}            # Custom user password from env variable
+    ports:
+      - "3306:3306"                                # Maps host port 3306 to container port 3306
+    volumes:
+      - mysql_data:/var/lib/mysql                  # Persists MySQL data in a named volume
+    networks:
+      - hostcheck_network                          # Connects to a custom network
+
+volumes:
+  mysql_data:                                      # Declares a named volume for data persistence
+
+networks:
+  hostcheck_network:                               # Declares a custom network
