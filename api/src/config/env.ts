@@ -11,6 +11,12 @@ export const MYSQL_USER: string          = process.env.MYSQL_USER || 'user';
 export const MYSQL_PASSWORD: string      = process.env.MYSQL_PASSWORD || 'password';
 export const MYSQL_HOST: string          = process.env.MYSQL_HOST || 'localhost';
 
+/* AWS SES Credentials */
+export const AWS_SES_REGION: string            = process.env.AWS_SES_REGION || 'us-east-1';
+export const AWS_SES_ACCESS_KEY_ID: string     = process.env.AWS_SES_ACCESS_KEY_ID || 'your_aws_ses_access_key_id';
+export const AWS_SES_SECRET_ACCESS_KEY: string = process.env.AWS_SES_SECRET_ACCESS_KEY || 'your_aws_ses_secret_access_key';
+export const AWS_SES_SENDER_EMAIL: string      = process.env.AWS_SES_SENDER_EMAIL || 'example@domain.com';
+
 export default {
     PORT, 
     NODE_ENV,
@@ -20,5 +26,11 @@ export default {
         MYSQL_USER,
         MYSQL_PASSWORD,
         MYSQL_HOST
+    },
+    AWS_SES: {
+        AWS_SES_REGION,
+        AWS_SES_ACCESS_KEY_ID,
+        AWS_SES_SECRET_ACCESS_KEY,
+        AWS_SES_SENDER_EMAIL
     }
 };
