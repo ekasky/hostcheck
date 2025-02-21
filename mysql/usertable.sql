@@ -17,7 +17,11 @@ CREATE TABLE User (
     twoFaBackupCodes JSON,
     passwordResetToken VARCHAR(255),
     passwordResetTokenExpires DATETIME,
+    accountVerified BOOLEAN DEFAULT FALSE,
+    accountVerificationCode VARCHAR(255),
+    accountVerificationCodeExpires DATETIME,
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
 

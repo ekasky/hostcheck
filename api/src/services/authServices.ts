@@ -43,7 +43,8 @@ export const registerLocal = async (registerData: ValidatedRegisterData) => {
             password: hash,
             provider: Provider.LOCAL,
             twoFaEnabled: false,
-            twoFaVerified: false
+            twoFaVerified: false,
+            accountVerified: false
         });
 
         const { password, twoFaSecret, twoFaBackupCodes, ...safeUser } = user.toJSON();

@@ -24,6 +24,9 @@ interface UserAttributes {
     twoFaBackupCodes?: string[];
     passwordResetToken?: string;
     passwordResetTokenExpires?: Date;
+    accountVerified: boolean;
+    accountVerificationCode?: string;
+    accountVerificationCodeExpires?: Date;
 };
 
 interface UserCreationAttributes extends Optional<UserAttributes, 'id'> {}
@@ -44,6 +47,9 @@ class User extends Model<UserAttributes, UserCreationAttributes> implements User
     public twoFaBackupCodes?: string[];
     public passwordResetToken?: string;
     public passwordResetTokenExpires?: Date;
+    public accountVerified!: boolean;
+    public accountVerificationCode?: string;
+    accountVerificationCodeExpires?: Date;
 }
 
 User.init(
@@ -128,6 +134,21 @@ User.init(
         },
 
         passwordResetTokenExpires: {
+            type: DataTypes.DATE,
+            allowNull: true
+        },
+
+        accountVerified: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false
+        },
+
+        accountVerificationCode: {
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+
+        accountVerificationCodeExpires: {
             type: DataTypes.DATE,
             allowNull: true
         }

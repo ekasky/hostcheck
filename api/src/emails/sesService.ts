@@ -12,7 +12,7 @@ const sesClient: SESClient = new SESClient({
 });
 
 /* Function to send a email */
-export const sendEmail = async (toEmail: string, subject: string, bodyHtml: string, bodyText: string) => {
+export const sendSesEmail = async (toEmail: string, subject: string, bodyHtml: string, bodyText: string) => {
 
     const params: SendEmailCommandInput = {
 

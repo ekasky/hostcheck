@@ -17,6 +17,10 @@ export const AWS_SES_ACCESS_KEY_ID: string     = process.env.AWS_SES_ACCESS_KEY_
 export const AWS_SES_SECRET_ACCESS_KEY: string = process.env.AWS_SES_SECRET_ACCESS_KEY || 'your_aws_ses_secret_access_key';
 export const AWS_SES_SENDER_EMAIL: string      = process.env.AWS_SES_SENDER_EMAIL || 'example@domain.com';
 
+/* Gmail (For Dev Testing Only) */
+export const GMAIL_USER: string = process.env.GMAIL_USER || 'example@gmail.com';
+export const GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD || 'your-app-password';
+
 export default {
     PORT, 
     NODE_ENV,
@@ -32,5 +36,9 @@ export default {
         AWS_SES_ACCESS_KEY_ID,
         AWS_SES_SECRET_ACCESS_KEY,
         AWS_SES_SENDER_EMAIL
+    },
+    GMAIL: {
+        GMAIL_USER,
+        GMAIL_APP_PASSWORD
     }
 };
