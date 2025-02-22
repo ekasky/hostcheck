@@ -1,7 +1,7 @@
 SHOW DATABASES;
 USE hostcheck;
 
-CREATE TABLE User (
+CREATE TABLE Users (
     id CHAR(36) NOT NULL PRIMARY KEY, 
     firstName VARCHAR(255) NOT NULL,
     lastName VARCHAR(255) NOT NULL,

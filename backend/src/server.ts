@@ -2,7 +2,7 @@ import express, { Application, Request, Response } from 'express';
 import env from './config/Env';
 import logger from './utils/Logger';
 import { errorHandler } from './middleware/errorHandler';
-import emailService from './services/email/EmailService';
+import authRouter from './routes/AuthRouter';
 
 class Server {
     private app: Application;
@@ -31,15 +31,7 @@ class Server {
     }
 
     private registerRoutes(): void {
-        this.app.get('/send', async (req: Request, res: Response) => {
-            await emailService.sendEmail(
-                'ekasky25@gmail.com',
-                'TEST EMAIL 123',
-                '<h1>TEST EMAIL 123</h1>',
-                'TEST EMAIL 123',
-            );
-            res.status(200).send('Sent');
-        });
+        this.app.use('/api/auth', authRouter);
     }
 
     private setupErrorHandling(): void {

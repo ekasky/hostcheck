@@ -26,3 +26,21 @@ export class AppTypeError extends AppError {
         super(message, 400, operational);
     }
 }
+
+export class PasswordHashError extends AppError {
+    constructor(message: string, operational = true) {
+        super(message, 500, operational);
+    }
+}
+
+export class PasswordVerificationError extends AppError {
+    constructor(message: string, operational = true) {
+        super(message, 500, operational);
+    }
+}
+
+export class ConflictError extends AppError {
+    constructor(message: string) {
+        super(message, 409, true);
+    }
+}

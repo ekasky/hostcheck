@@ -20,6 +20,10 @@ export class NodemailerProvider implements IEmailProvider {
 
     async sendEmail(toEmail: string, subject: string, bodyHtml: string, bodyText: string): Promise<void> {
         try {
+            if (toEmail === undefined) {
+                throw new Error('TO ADDRESS UNDEFINED');
+            }
+
             const info = await this.transporter.sendMail({
                 from: ENV.NODE_MAILER_SMTP_USER,
                 to: toEmail,
