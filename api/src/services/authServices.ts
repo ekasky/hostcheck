@@ -1,7 +1,11 @@
 import argon2 from 'argon2';
+import { v4 as uuid } from 'uuid';
 import { ValidatedRegisterData } from '../validators/auth';
 import { ConflictError, HashingError } from '../utils/AppErrors';
 import User, { Provider } from '../models/User';
+import { accountVerificationTemplate } from '../emails/templates/accountVerification';
+import { sendEmail } from '../emails/emailService';
+import { FRONTEND_URL } from '../config/env';
 
 
 const hashPassword = async (password: string): Promise<string> => {
@@ -21,6 +25,29 @@ const verifyPassword = async (password: string, hashedPassword: string): Promise
 
 };
 
+const generateAccountVerificationLink = async (userId: string): Promise<string> => {
+
+    // Generate a token
+    const token: string = uuid();
+
+    // Calculate expiration time (15 minutes from now)
+    const expiresAt = new Date();
+    expiresAt.setMinutes(expiresAt.getMinutes() + 15);
+
+    // Store the token in the user's record
+    const user: User | null = await User.findByPk(userId);
+
+    if(!user) {
+        throw new Error('User not found for verification link generation');
+    }
+
+    await user.update({ accountVerificationCode: token, accountVerificationCodeExpires: expiresAt });
+
+    // Create and return the verification link
+    return `${FRONTEND_URL}/api/auth/verify-account?token=${token}`;
+
+};
+
 export const registerLocal = async (registerData: ValidatedRegisterData) => {
 
     try {
@@ -33,7 +60,7 @@ export const registerLocal = async (registerData: ValidatedRegisterData) => {
         }
 
         // Hash the user's password for safe storage
-        const hash: string = await hashPassword(registerData.password);
+        const hash: string = await hashPassword(registerData.password); 
 
         // Create the new user
         const user: User = await User.create({
@@ -44,8 +71,15 @@ export const registerLocal = async (registerData: ValidatedRegisterData) => {
             provider: Provider.LOCAL,
             twoFaEnabled: false,
             twoFaVerified: false,
-            accountVerified: false
+            accountVerified: false,
         });
+
+        // Generate a inital account verification link
+        const verificationLink: string = await generateAccountVerificationLink(user.id);
+
+        // Send a account verification email
+        const emailContent = accountVerificationTemplate(user.firstName, verificationLink);
+        await sendEmail(user.email, emailContent.subject, emailContent.bodyHtml, emailContent.bodyText);
 
         const { password, twoFaSecret, twoFaBackupCodes, ...safeUser } = user.toJSON();
 

@@ -21,6 +21,9 @@ export const AWS_SES_SENDER_EMAIL: string      = process.env.AWS_SES_SENDER_EMAI
 export const GMAIL_USER: string = process.env.GMAIL_USER || 'example@gmail.com';
 export const GMAIL_APP_PASSWORD = process.env.GMAIL_APP_PASSWORD || 'your-app-password';
 
+/* Frontend */
+export const FRONTEND_URL: string = process.env.FRONTEND_URL || `http://localhost:${PORT}`
+
 export default {
     PORT, 
     NODE_ENV,
